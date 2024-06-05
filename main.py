@@ -1,4 +1,4 @@
-from menu import Menu
+from Menu import Menu
 from utils import save_menu, load_menu
 
 def main():
