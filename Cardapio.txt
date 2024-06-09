@@ -1,6 +1,6 @@
 Cardapio:
 Bebidas:
-{'refrigerante': {}, 'cafe': {}, 'suco': {'merda': 3.0, 'cu': 4.0, 'bosta2': 40.0}}
+{'refrigerante': {'coca-cola 1L': 9.0, 'coca-cola zero 1L': 9.0}, 'cafe': {'cafe expresso': 5.0}, 'suco': {'suco de laranja 300ML': 4.0, 'suco de uva 300ML ': 4.0}}
 Comidas:
 {'sanduiche': {}, 'hamburguer': {}, 'salgado': {}}
 Sobremesas:
