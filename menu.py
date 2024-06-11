@@ -1,8 +1,8 @@
 menu = {
-    'bebida':{'refrigerante':{},'cafe':{},'suco':{}},
-    'comida':{'sanduiche':{},'hamburguer':{},'salgado':{}},
-    'sobremesa':{'bolo':{},'cookie':{},'brownie':{}},
-    'especial':{'bebida-especial':{},'lanche-especial':{},'sobremesa-especial':{}}
+    'bebida': {'refrigerante': {}, 'cafe': {}, 'suco': {}},
+    'comida': {'sanduiche': {}, 'hamburguer': {}, 'salgado': {}},
+    'sobremesa': {'bolo': {}, 'cookie': {}, 'brownie': {}},
+    'especial': {'bebida-especial': {}, 'lanche-especial': {}, 'sobremesa-especial': {}}
 }
 
 def add():
@@ -58,15 +58,71 @@ def change():
         menu[categoria][subcategoria].pop(produto)
         menu[categoria][subcategoria][novoproduto] = novopreco
 
-while 1 == 1:
-    escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardapio.\nDigite (2) para REMOVER produtos do cardapio.\nDigite (3) para ALTERAR algum produto ja existente.\nDigite (4) para SAIR e salvar.\nO que deseja fazer: '))
-    if escolha == 1:
-        add()
-    elif escolha == 2:
-        remove()
-    elif escolha == 3:
-        change()
-    else:
-        break
-with open('Cardapio.txt', 'w') as arquivo:
-    arquivo.write(f"Cardapio:\nBebidas:\n{menu['bebida']}\nComidas:\n{menu['comida']}\nSobremesas:\n{menu['sobremesa']}\nEspeciais:\n{menu['especial']}")
+def mostrar_menu():
+    print("Cardápio:")
+    for categoria, subcategorias in menu.items():
+        print(f"{categoria.capitalize()}:")
+        for subcategoria, produtos in subcategorias.items():
+            print(f"  {subcategoria.capitalize()}:")
+            for produto, preco in produtos.items():
+                print(f"    {produto} - R${preco:.2f}")
+
+def selecionar_itens():
+    pedido = []
+    while True:
+        mostrar_menu()
+        categoria = input('Digite a categoria do produto para adicionar ao pedido ou "F" para finalizar: ').lower()
+        if categoria == 'f':
+            break
+        if categoria not in menu:
+            print("Categoria inválida. Tente novamente.")
+            continue
+        subcategoria = input('Digite a sub-categoria do produto: ').lower()
+        if subcategoria not in menu[categoria]:
+            print("Sub-categoria inválida. Tente novamente.")
+            continue
+        produto = input('Digite o nome do produto: ').lower()
+        if produto not in menu[categoria][subcategoria]:
+            print("Produto inválido. Tente novamente.")
+            continue
+        pedido.append((produto, menu[categoria][subcategoria][produto]))
+        print(f"{produto} adicionado ao pedido.")
+    return pedido
+
+def calcular_total(pedido, taxa_garcom):
+    total = sum(preco for _, preco in pedido)
+    total_com_taxa = total * (1 + taxa_garcom)
+    return total_com_taxa
+
+def main():
+    taxa_garcom = 0.10
+    while True:
+        escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardápio.\n'
+                            f'Digite (2) para REMOVER produtos do cardápio.\n'
+                            f'Digite (3) para ALTERAR algum produto já existente.\n'
+                            f'Digite (4) para SELECIONAR itens do cardápio para compra.\n'
+                            f'Digite (5) para SAIR e salvar.\nO que deseja fazer: '))
+        if escolha == 1:
+            add()
+        elif escolha == 2:
+            remove()
+        elif escolha == 3:
+            change()
+        elif escolha == 4:
+            pedido = selecionar_itens()
+            if pedido:
+                total = calcular_total(pedido, taxa_garcom)
+                print("\nItens no pedido:")
+                for item, preco in pedido:
+                    print(f"- {item} - R${preco:.2f}")
+                print(f"Total com taxa de serviço ({taxa_garcom * 100}%): R${total:.2f}")
+            else:
+                print("Nenhum item no pedido.")
+        else:
+            break
+
+    with open('Cardapio.txt', 'w') as arquivo:
+        arquivo.write(f"Cardapio:\nBebidas:\n{menu['bebida']}\nComidas:\n{menu['comida']}\nSobremesas:\n{menu['sobremesa']}\nEspeciais:\n{menu['especial']}")
+
+if __name__ == "__main__":
+    main()
