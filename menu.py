@@ -1,10 +1,8 @@
-menu = {
-    'bebida': {'refrigerante': {}, 'cafe': {}, 'suco': {}},
-    'comida': {'sanduiche': {}, 'hamburguer': {}, 'salgado': {}},
-    'sobremesa': {'bolo': {}, 'cookie': {}, 'brownie': {}},
-    'especial': {'bebida-especial': {}, 'lanche-especial': {}, 'sobremesa-especial': {}}
-}
+import json
 
+with open('Cardapio.txt', 'r') as a:
+    menu = json.load(a)
+    
 def add():
     categoria = input('Digite a categoria do produto: ')
     while categoria.lower() not in menu:
@@ -58,6 +56,20 @@ def change():
         menu[categoria][subcategoria].pop(produto)
         menu[categoria][subcategoria][novoproduto] = novopreco
 
+while 1 == 1:
+    escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardapio.\nDigite (2) para REMOVER produtos do cardapio.\nDigite (3) para ALTERAR algum produto ja existente.\nDigite (4) para SAIR e salvar.\nO que deseja fazer: '))
+    if escolha == 1:
+        add()
+    elif escolha == 2:
+        remove()
+    elif escolha == 3:
+        change()
+    else:
+        break
+    
+with open('Cardapio.txt', 'w') as a: 
+    a.write(json.dumps(menu))
+    
 def mostrar_menu():
     print("Cardápio:")
     for categoria, subcategorias in menu.items():
@@ -126,3 +138,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
