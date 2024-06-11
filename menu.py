@@ -5,6 +5,8 @@ menu = {
     'especial': {'bebida-especial': {}, 'lanche-especial': {}, 'sobremesa-especial': {}}
 }
 
+# changes for new branch
+
 def add():
     categoria = input('Digite a categoria do produto: ')
     while categoria.lower() not in menu:
