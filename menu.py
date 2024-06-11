@@ -67,6 +67,15 @@ def mostrar_menu():
             for produto, preco in produtos.items():
                 print(f"    {produto} - R${preco:.2f}")
 
+def list():
+    for categoria, subcategorias in menu.items():
+        print(f'{categoria}')
+        for subcategoria, produtos in subcategorias.items():
+            print(f'   {subcategoria}:')
+            for produto, preco in produtos.items():
+                print(f'    {produto}: R$ {preco}')
+        print()
+
 def selecionar_itens():
     pedido = []
     while True:
@@ -100,8 +109,9 @@ def main():
         escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardápio.\n'
                             f'Digite (2) para REMOVER produtos do cardápio.\n'
                             f'Digite (3) para ALTERAR algum produto já existente.\n'
-                            f'Digite (4) para SELECIONAR itens do cardápio para compra.\n'
-                            f'Digite (5) para SAIR e salvar.\nO que deseja fazer: '))
+                            f'Digite (4) para LISTAR os itens do cardápio.\n'
+                            f'Digite (5) para SELECIONAR itens do cardápio para compra.\n'
+                            f'Digite (6) para SAIR e salvar.\nO que deseja fazer: '))
         if escolha == 1:
             add()
         elif escolha == 2:
@@ -109,6 +119,8 @@ def main():
         elif escolha == 3:
             change()
         elif escolha == 4:
+            list()
+        elif escolha == 5:
             pedido = selecionar_itens()
             if pedido:
                 total = calcular_total(pedido, taxa_garcom)
