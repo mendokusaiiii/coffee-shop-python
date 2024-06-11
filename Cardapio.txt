@@ -1,9 +1,1 @@
-Cardapio:
-Bebidas:
-{'refrigerante': {}, 'cafe': {}, 'suco': {'merda': 3.0, 'cu': 4.0, 'bosta2': 40.0}}
-Comidas:
-{'sanduiche': {}, 'hamburguer': {}, 'salgado': {}}
-Sobremesas:
-{'bolo': {}, 'cookie': {}, 'brownie': {}}
-Especiais:
-{'bebida-especial': {}, 'lanche-especial': {}, 'sobremesa-especial': {}}
+{"bebida": {"refrigerante": {"coca-cola": 7.5, "guarana": 6.0, "fanta uva": 5.0, "fanta laranja": 5.0}, "cafe": {"expresso": 5.0, "cappuccino": 8.0, "latte": 7.0}, "suco": {"laranja": 6.5, "maca": 5.5, "abacaxi": 7.0}}, "comida": {"sanduiche": {"misto-quente": 8.0, "frango-com-catupiry": 12.0, "natural": 10.0}, "hamburguer": {"x-salada": 15.0, "x-bacon": 18.0, "vegano": 17.0}, "salgado": {"coxinha": 6.0, "kibe": 5.0, "esfiha": 4.5}}, "sobremesa": {"bolo": {"chocolate": 7.0, "cenoura": 6.0, "limao": 6.5}, "cookie": {"chocolate": 4.0, "aveia-e-mel": 4.5, "macadamia": 5.0}, "brownie": {"tradicional": 6.0, "nozes": 7.0, "duplo-chocolate": 7.5}}, "especial": {"bebida-especial": {"caipirinha": 12.0, "margarita": 14.0, "mojito": 13.0}, "lanche-especial": {"hamburguer-gourmet": 25.0, "sanduiche-de-pernil": 20.0, "taco-mexicano": 22.0}, "sobremesa-especial": {"torta-holandesa": 15.0, "cheesecake": 18.0, "pavlova": 20.0}}}
