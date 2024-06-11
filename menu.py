@@ -95,6 +95,8 @@ def calcular_total(pedido, taxa_garcom):
     return total_com_taxa
 
 def main():
+#adicionando comentario para mudancas
+
     taxa_garcom = 0.10
     while True:
         escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardápio.\n'
