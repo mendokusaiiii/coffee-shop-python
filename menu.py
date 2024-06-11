@@ -1,10 +1,8 @@
-menu = {
-    'bebida':{'refrigerante':{},'cafe':{},'suco':{}},
-    'comida':{'sanduiche':{},'hamburguer':{},'salgado':{}},
-    'sobremesa':{'bolo':{},'cookie':{},'brownie':{}},
-    'especial':{'bebida-especial':{},'lanche-especial':{},'sobremesa-especial':{}}
-}
+import json
 
+with open('Cardapio.txt', 'r') as a:
+    menu = json.load(a)
+    
 def add():
     categoria = input('Digite a categoria do produto: ')
     while categoria.lower() not in menu:
@@ -68,5 +66,6 @@ while 1 == 1:
         change()
     else:
         break
-with open('Cardapio.txt', 'w') as arquivo:
-    arquivo.write(f"Cardapio:\nBebidas:\n{menu['bebida']}\nComidas:\n{menu['comida']}\nSobremesas:\n{menu['sobremesa']}\nEspeciais:\n{menu['especial']}")
+    
+with open('Cardapio.txt', 'w') as a: 
+    a.write(json.dumps(menu))
