@@ -63,7 +63,32 @@ def mostrar_menu():
             print(f"  {subcategoria.capitalize()}:")
             for produto, preco in produtos.items():
                 print(f"    {produto} - R${preco:.2f}")
- 
+                
+                
+def list():
+    for categoria, subcategorias in menu.items():
+        print(f'{categoria}')
+        for subcategoria, produtos in subcategorias.items():
+            print(f'   {subcategoria}:')
+            for produto, preco in produtos.items():
+                print(f'    {produto}: R$ {preco}')
+        print()
+
+def buscar():
+    global categoria
+    nome = input("Digite o nome do item a ser buscado: ")
+
+    for categoria, subcategorias in menu.items():
+        for subcategoria, produtos in subcategorias.items():
+            for produto, preco in produtos.items():
+                if nome in produto:
+                    print(f"Item encontrado:\nCategoria: {categoria}\nSubcategoria: {subcategoria}\nProduto: {produto}\nPreço: R${preco:.2f}")
+                    return
+
+    print("Produto não encontrado.")
+
+
+
 def selecionar_itens():
     pedido = []
     mostrar_menu()
@@ -97,7 +122,8 @@ while True:
                         f'Digite (2) para REMOVER produtos do cardápio.\n'
                         f'Digite (3) para ALTERAR algum produto já existente.\n'
                         f'Digite (4) para SELECIONAR ou MOSTRAR os itens do cardápio para compra.\n'
-                        f'Digite (5) para SAIR e salvar.\nO que deseja fazer: '))
+                        f'Digite (5) para BUSCAR itens no cardapio. \n'
+                        f'Digite (6) para SAIR e salvar.\nO que deseja fazer: '))
     if escolha == 1:
         add()
     elif escolha == 2:
@@ -114,8 +140,11 @@ while True:
             print(f"Total com taxa de serviço ({taxa_garcom * 100}%): R${total:.2f}\n")
         else:
             print(f"\nNenhum item no pedido.\n")
+    elif escolha == 5:
+        buscar()
     else:
         break
+
  
 with open('Cardapio.txt', 'w') as a: 
   a.write(json.dumps(menu))
