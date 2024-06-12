@@ -65,6 +65,16 @@ def mostrar_menu():
             for produto, preco in produtos.items():
                 print(f"    {produto} - R${preco:.2f}")
 
+
+def list():
+    for categoria, subcategorias in menu.items():
+        print(f'{categoria}')
+        for subcategoria, produtos in subcategorias.items():
+            print(f'   {subcategoria}:')
+            for produto, preco in produtos.items():
+                print(f'    {produto}: R$ {preco}')
+        print()
+
 def selecionar_itens():
     pedido = []
     mostrar_menu()
@@ -118,6 +128,7 @@ while True:
     else:
         break
             
+            
 with open('Cardapio.txt', 'w') as a: 
   a.write(json.dumps(menu))
-        
+            
