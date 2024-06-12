@@ -1,8 +1,8 @@
 import json
-
+ 
 with open('Cardapio.txt', 'r') as a:
     menu = json.load(a)
-
+ 
 def add():
     categoria = input('Digite a categoria do produto: ')
     while categoria.lower() not in menu:
@@ -16,7 +16,7 @@ def add():
             break
         preco = float(input('Digite o preço do produto: '))
         menu[categoria][subcategoria][produto] = preco
-
+ 
 def remove():
     categoria = input('Digite a categoria do produto que deseja remover: ')
     while categoria.lower() not in menu:
@@ -28,14 +28,12 @@ def remove():
         produto = input('Digite o nome do produto que deseja remover ou "sair" para parar: ')
         if produto.lower() == 'sair':
             break
-        if produto not in menu[categoria][subcategoria]:
-            produto = input('Este produto não existe no cardapio, verifique se esta em outra categoria, volte para adiciona-lo (digite "sair") ou tente novamente: ')
-            if produto.lower() == 'sair':
-                break
-        else: 
-            del menu[categoria][subcategoria][produto]
-            print(f'Produto {produto} removido com sucesso!')
-
+        elif produto not in menu[categoria][subcategoria]:
+            print('Este produto não existe no cardapio, verifique se esta em outra categoria, volte para adiciona-lo (digite "sair") ou tente novamente: ')
+            continue
+        del menu[categoria][subcategoria][produto]
+        print(f'Produto {produto} removido com sucesso!')
+ 
 def change():
     categoria = input('Digite a categoria do produto que deseja alterar: ')
     while categoria.lower() not in menu:
@@ -43,19 +41,20 @@ def change():
     subcategoria = input('Digite a sub-categoria do produto que deseja alterar: ')
     while subcategoria.lower() not in menu[categoria]:
         subcategoria = input('Digite a sub-categoria do produto que deseja alterar novamente: ')
-    produto = input('Digite o nome do produto que deseja alterar: ')
-    while produto not in menu[categoria][subcategoria]:
-        produto = input('Este produto não existe no cardapio, verifique se esta em outra categoria, volte para adiciona-lo (digite "sair") ou tente novamente: ')
+    while True:
+        produto = input('Digite o nome do produto que deseja alterar ou "sair": ')
         if produto.lower() == 'sair':
             break
-    while True:
-        novoproduto = input('Digite o nome do novo produto (digite "sair" para parar de alterar itens): ')
-        if novoproduto.lower() == 'sair':
+        elif produto.lower() not in menu[categoria][subcategoria]:
+            print('Este produto não existe no cardapio, verifique se esta em outra categoria, volte para adiciona-lo (digite "sair") ou tente novamente')
+            continue
+        novoproduto = input('Digite o nome do novo produto: ')
+        if novoproduto == 'sair':
             break
         novopreco = float(input('Digite o novo preco do produto: '))
         menu[categoria][subcategoria].pop(produto)
         menu[categoria][subcategoria][novoproduto] = novopreco
-
+    
 def mostrar_menu():
     print("Cardápio:")
     for categoria, subcategorias in menu.items():
@@ -64,17 +63,7 @@ def mostrar_menu():
             print(f"  {subcategoria.capitalize()}:")
             for produto, preco in produtos.items():
                 print(f"    {produto} - R${preco:.2f}")
-
-
-def list():
-    for categoria, subcategorias in menu.items():
-        print(f'{categoria}')
-        for subcategoria, produtos in subcategorias.items():
-            print(f'   {subcategoria}:')
-            for produto, preco in produtos.items():
-                print(f'    {produto}: R$ {preco}')
-        print()
-
+ 
 def selecionar_itens():
     pedido = []
     mostrar_menu()
@@ -96,12 +85,12 @@ def selecionar_itens():
         pedido.append((produto, menu[categoria][subcategoria][produto]))
         print(f"{produto} adicionado ao pedido.")
     return pedido
-
+ 
 def calcular_total(pedido, taxa_garcom):
     total = sum(preco for _, preco in pedido)
     total_com_taxa = total * (1 + taxa_garcom)
     return total_com_taxa
-
+ 
 while True:
     taxa_garcom = 0.10
     escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardápio.\n'
@@ -119,16 +108,14 @@ while True:
         pedido = selecionar_itens()
         if pedido:
             total = calcular_total(pedido, taxa_garcom)
-            print("\nItens no pedido:")
+            print(f"\nItens no pedido:\n")
             for item, preco in pedido:
                 print(f"- {item} - R${preco:.2f}")
-            print(f"Total com taxa de serviço ({taxa_garcom * 100}%): R${total:.2f}")
+            print(f"Total com taxa de serviço ({taxa_garcom * 100}%): R${total:.2f}\n")
         else:
-            print("Nenhum item no pedido.")
+            print(f"\nNenhum item no pedido.\n")
     else:
         break
-            
-            
+ 
 with open('Cardapio.txt', 'w') as a: 
   a.write(json.dumps(menu))
-            
