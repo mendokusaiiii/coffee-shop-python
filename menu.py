@@ -65,6 +65,7 @@ def mostrar_menu():
             for produto, preco in produtos.items():
                 print(f"    {produto} - R${preco:.2f}")
 
+
 def list():
     for categoria, subcategorias in menu.items():
         print(f'{categoria}')
@@ -76,8 +77,8 @@ def list():
 
 def selecionar_itens():
     pedido = []
+    mostrar_menu()
     while True:
-        mostrar_menu()
         categoria = input('Digite a categoria do produto para adicionar ao pedido ou "F" para finalizar: ').lower()
         if categoria == 'f':
             break
@@ -101,41 +102,33 @@ def calcular_total(pedido, taxa_garcom):
     total_com_taxa = total * (1 + taxa_garcom)
     return total_com_taxa
 
-def main():
-#adicionando comentario para mudancas
-
+while True:
     taxa_garcom = 0.10
-    while True:
-        escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardápio.\n'
-                            f'Digite (2) para REMOVER produtos do cardápio.\n'
-                            f'Digite (3) para ALTERAR algum produto já existente.\n'
-                            f'Digite (4) para LISTAR os itens do cardápio.\n'
-                            f'Digite (5) para SELECIONAR itens do cardápio para compra.\n'
-                            f'Digite (6) para SAIR e salvar.\nO que deseja fazer: '))
-        if escolha == 1:
-            add()
-        elif escolha == 2:
-            remove()
-        elif escolha == 3:
-            change()
-        elif escolha == 4:
-            list()
-        elif escolha == 5:
-            pedido = selecionar_itens()
-            if pedido:
-                total = calcular_total(pedido, taxa_garcom)
-                print("\nItens no pedido:")
-                for item, preco in pedido:
-                    print(f"- {item} - R${preco:.2f}")
-                print(f"Total com taxa de serviço ({taxa_garcom * 100}%): R${total:.2f}")
-            else:
-                print("Nenhum item no pedido.")
+    escolha = int(input(f'Digite (1) para ADICIONAR produtos ao cardápio.\n'
+                        f'Digite (2) para REMOVER produtos do cardápio.\n'
+                        f'Digite (3) para ALTERAR algum produto já existente.\n'
+                        f'Digite (4) para SELECIONAR ou MOSTRAR os itens do cardápio para compra.\n'
+                        f'Digite (5) para SAIR e salvar.\nO que deseja fazer: '))
+    if escolha == 1:
+        add()
+    elif escolha == 2:
+        remove()
+    elif escolha == 3:
+        change()
+    elif escolha == 4:
+        pedido = selecionar_itens()
+        if pedido:
+            total = calcular_total(pedido, taxa_garcom)
+            print("\nItens no pedido:")
+            for item, preco in pedido:
+                print(f"- {item} - R${preco:.2f}")
+            print(f"Total com taxa de serviço ({taxa_garcom * 100}%): R${total:.2f}")
         else:
-            break
+            print("Nenhum item no pedido.")
+    else:
+        break
+            
             
 with open('Cardapio.txt', 'w') as a: 
   a.write(json.dumps(menu))
             
-
-if __name__ == "__main__":
-    main()
